@@ -54,13 +54,12 @@ background: '/img/posts/04.jpg'
     x: d => d.date,
     y: d => d.close,
     yLabel: "↑ Daily close ($)",
-    width,
+    width : 200,
     height: 500,
     color: "steelblue"
     })
 
-    const area = d3.select("#viz_area").appendChild(chart)
-
+    const area = d3.select("body").append(chart)
 
     function LineChart(data, {
     x = ([x]) => x, // given d in data, returns the (temporal) x-value
@@ -207,3 +206,140 @@ d3.csv("/data/amounts.csv").then(function(data) {
 });
 
 </script>
+
+
+
+
+
+
+<script>
+    //This code will visualize a data set as a simple scatter chart using d3. I omit axes for simplicity.
+    var data = [        //This is the data we want to visualize. 
+                        //In reality it usually comes from a file or database.
+      {x: 10,    y: 10},
+      {x: 10,    y: 20},
+      {x: 10,    y: 30},
+      {x: 10,    y: 40},
+      {x: 10,    y: 50},
+      {x: 10,    y: 80},
+      {x: 10,    y: 90},
+      {x: 10,    y: 100},
+      {x: 10,    y: 110},
+      {x: 20,    y: 30},
+      {x: 20,    y: 120},
+      {x: 30,    y: 10},
+      {x: 30,    y: 20},
+      {x: 30,    y: 30},
+      {x: 30,    y: 40},
+      {x: 30,    y: 50},
+      {x: 30,    y: 80},
+      {x: 30,    y: 90},
+      {x: 30,    y: 100},
+      {x: 30,    y: 110},
+      {x: 40,    y: 120},
+      {x: 50,    y: 10},
+      {x: 50,    y: 20},
+      {x: 50,    y: 30},
+      {x: 50,    y: 40},
+      {x: 50,    y: 50},
+      {x: 50,    y: 80},
+      {x: 50,    y: 90},
+      {x: 50,    y: 100},
+      {x: 50,    y: 110},
+      {x: 60,    y: 10},
+      {x: 60,    y: 30},
+      {x: 60,    y: 50},
+      {x: 70,    y: 10},
+      {x: 70,    y: 30},
+      {x: 70,    y: 50},
+      {x: 70,    y: 90},
+      {x: 70,    y: 100},
+      {x: 70,    y: 110},
+      {x: 80,    y: 80},
+      {x: 80,    y: 120},
+      {x: 90,    y: 10},
+      {x: 90,    y: 20},
+      {x: 90,    y: 30},
+      {x: 90,    y: 40},
+      {x: 90,    y: 50},
+      {x: 90,    y: 80},
+      {x: 90,    y: 120},
+      {x: 100,    y: 50},
+      {x: 100,    y: 90},
+      {x: 100,    y: 100},
+      {x: 100,    y: 110},
+      {x: 110,    y: 50},
+      {x: 120,    y: 80},
+      {x: 120,    y: 90},
+      {x: 120,    y: 100},
+      {x: 120,    y: 110},
+      {x: 120,    y: 120},
+      {x: 130,    y: 10},
+      {x: 130,    y: 20},
+      {x: 130,    y: 30},
+      {x: 130,    y: 40},
+      {x: 130,    y: 50},
+      {x: 130,    y: 80},
+      {x: 130,    y: 100},
+      {x: 140,    y: 50},
+      {x: 140,    y: 80},
+      {x: 140,    y: 100},
+      {x: 140,    y: 110},  
+      {x: 150,    y: 50},
+      {x: 150,    y: 90},
+      {x: 150,    y: 120},
+      {x: 170,    y: 20},
+      {x: 170,    y: 30},
+      {x: 170,    y: 40},
+      {x: 170,    y: 80},
+      {x: 170,    y: 90},  
+      {x: 170,    y: 100},
+      {x: 170,    y: 110},
+      {x: 170,    y: 120},
+      {x: 180,    y: 10},
+      {x: 180,    y: 50},
+      {x: 180,    y: 120},
+      {x: 190,    y: 10},
+      {x: 190,    y: 50},
+      {x: 190,    y: 120},
+      {x: 200,    y: 20},
+      {x: 200,    y: 30},  
+      {x: 200,    y: 40},
+      {x: 210,    y: 80},
+      {x: 210,    y: 90},
+      {x: 210,    y: 100},
+      {x: 210,    y: 110},  
+      {x: 210,    y: 120},
+      {x: 220,    y: 80},  
+      {x: 220,    y: 120},
+      {x: 230,    y: 80},  
+      {x: 230,    y: 120},
+      {x: 240,    y: 90},
+      {x: 240,    y: 100},  
+      {x: 240,    y: 110},
+      {x: 270,    y: 70},
+      {x: 270,    y: 80},
+      {x: 270,    y: 90},
+      {x: 270,    y: 100},  
+      {x: 270,    y: 120}
+    ];
+    
+    //The following code chains a bunch of methods. Method chaining is what makes d3 very simple and concise.
+    d3.select("body").append("svg").selectAll()  //'d3' calls the d3 library
+                                                 //'.select' selects the object (in this case the body of HTML)
+                                                 //'.append' adds SVG element to the body
+                                                 //'.selectAll()' selects all SVG elements
+        .data(data)                              //'.data' gets the data from the variable 'data'
+      .enter().append("circle")                  //'.enter' enters the data into the SVG 
+                                                 //the data enter as circles with '.append("circle")'
+        .attr("r", 3)                            //'.attr' adds/alters atributes of SVG, 
+                                                 //such as radius ("r"), making it 3 pixels
+        .attr("cx", function(d) { return d.x; }) //coordinates "cx" (circles' x coordinates)
+        .attr("cy", function(d) { return d.y; }) //coordinates "cy" (circles' y coordinates)
+        .style("fill", "darkblue");              //'.style' changes CSS of the SVG
+                                                 //in this case, fills circles with "darkblue" color
+    
+    </script>
+
+
+<div class='tableauPlaceholder' id='viz1652002428785' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fr&#47;FraudandIDTheftMaps&#47;AllReportsbyState&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FraudandIDTheftMaps&#47;AllReportsbyState' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fr&#47;FraudandIDTheftMaps&#47;AllReportsbyState&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1652002428785');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1100px';vizElement.style.height='900px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
